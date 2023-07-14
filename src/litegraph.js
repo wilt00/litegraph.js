@@ -6148,11 +6148,17 @@ LGraphNode.prototype.executeAction = function(action)
 						}
 					}
 
-					if (is_double_click && !this.read_only && this.allow_searchbox) {
+                    if (is_double_click && !this.read_only) {
+                        if (this.onDoubleClick) {
+                            this.onDoubleClick(e);
+                            e.preventDefault();
+                            e.stopPropagation();
+                        } else if (this.allow_searchbox) {
 						this.showSearchBox(e);
 						e.preventDefault();
 						e.stopPropagation();
 					}
+                    }
 
 					clicking_canvas_bg = true;
 				}
